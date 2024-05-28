@@ -37,9 +37,13 @@ public class PdsFile {
 	    	  // System.out.println("originalName:" + originalName);
 	    	  // c:\download\data.abc.txt
 	    	  String fileName = 
-	    			  originalName.substring(originalName.lastIndexOf("\\") + 1); // data.abc.txt
+	    			  (originalName.lastIndexOf("\\") < 0) ?
+	    					  originalName :
+	    			   originalName.substring(originalName.lastIndexOf("\\") + 1); // data.abc.txt
 	    	  String fileExt  = 
-	    			  originalName.substring(originalName.lastIndexOf("\\") + 1); // .txt
+	    			  (originalName.lastIndexOf(".") < 0 ) ?
+	    			  	"" : originalName.substring(originalName.lastIndexOf(".") ); 
+	    	  			// .txt --> begin-1 ~~ 이런 에러 시 확장자가 없는 파일 업로드
 	    	  
 	    	  // d:\dev\data\2024\05\27
 	    	  // 날짜 폴더 생성
@@ -80,7 +84,8 @@ public class PdsFile {
 	      	
 	      
 	   } // save() end
-
+	
+	// 폴더 생성 : 날짜 형식 폴더
 	private static String makeFolder(String uploadPath) {
 		// uploadPath   folderPath 
 		// d:\dev\data\2024\05\27
@@ -100,6 +105,24 @@ public class PdsFile {
 		}
 		
 		return folderPath;
+	}
+	
+	// 실제 물리적 파일 삭제
+	public static void delete(String uploadPath, List<FilesVo> fileList) {
+		if(fileList == null) {
+			System.out.println("fileList is null, nothing to delete");
+			return;
+		}
+		
+		String path = uploadPath;  // d:/dev/data
+		
+		fileList.forEach((file) -> {
+			String sfile = file.getSfilename();
+			File   dfile  = new File(path + sfile);
+			// System.out.println("삭제 경로: " + dfile.getAbsolutePath());
+			if(dfile.exists() ) 
+				dfile.delete();
+	 });
 	}
 
 }

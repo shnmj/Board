@@ -44,7 +44,7 @@
 		let num = 1;
 		$('#btnAddFile').on('click', function(e) {
 			let tag = '<input type="file" name="upfile" '
-			+ 'class="upfile" multiple/><br>';
+				+ 'class="upfile" multiple/><br>';
 			$('#tdfile').append(tag);
 			num++;
 		})
@@ -82,7 +82,7 @@
 	 <tr>
 	   <td>파일</td>
 	   <td id="tdfile">
-	   	<input type="button" id="btnAddFile" value="파일추가(최대 30M byte)" />
+	   	<input type="button" id="btnAddFile" value="파일추가(최대 30MB)" />
 	   	<input type="file" name="upfile" class="upfile" multiple/>
 	   </td>
 	 </tr>	
@@ -102,7 +102,7 @@
   // 목록 이동
   	const  goListEl  = document.getElementById('goList');
   	goListEl.addEventListener('click', function(e) {
-  		location.href = '/BoardPaging/List?menu_id=${menu_id}&nowpage=${nowpage}';
+  		location.href = '/Pds/List?menu_id=${map.menu_id}&nowpage=${map.nowpage}';
   	})
   
   </script>

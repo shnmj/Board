@@ -5,14 +5,13 @@
   <!-- 자료실 목록 조회 -->
   <select id = "getPdsList" >
   	 SELECT  BNO
-         , TITLE
-         , WRITER
-         -- 상관 서브 쿼리 (corelative subquery) : 양방 관계
-         , (SELECT COUNT(*) 
-	            FROM  FILES F
-	            WHERE B.BNO = F.BNO) FILESCOUNT
-         , TO_CHAR(REGDATE, 'YYYY-MM-DD' ) REGDATE
-         , HIT
+       	   , TITLE
+         	 , WRITER
+         	 , (SELECT COUNT(*) 
+	      	      FROM  FILES F
+	      	      WHERE B.BNO = F.BNO) FILESCOUNT
+        	 , TO_CHAR(REGDATE, 'YYYY-MM-DD' ) REGDATE
+        	 , HIT
  			FROM     BOARD B
  			WHERE    MENU_ID = #{menu_id}
 		  ORDER BY BNO DESC
@@ -92,6 +91,58 @@
   	</foreach>
   	
   </insert>
+  
+  
+  <!-- 조회수 증가 -->
+  <update id="setReadcountUpdate">
+  	UPDATE  BOARD
+  	 SET    HIT = HIT + 1
+  	 WHERE  BNO = #{bno}
+  </update>
+  
+  
+  <!-- Param file_num은 오류 발생 : arg0, param1 -->
+  <select id="getFileInfo">
+  	SELECT  FILE_NUM
+  				, BNO
+  				, FILENAME
+  				, FILEEXT
+  				, SFILENAME
+  	 FROM   FILES
+  	 WHERE  FILE_NUM = #{arg0}
+  </select>
+  
+  <!-- Files Table 삭제 : bno로 여러개 -->
+  <delete id="deleteUploadFile">
+  	DELETE	
+  	 FROM   FILES
+  	 WHERE  BNO = #{bno}
+  </delete>
+  
+  
+  <!-- Files Table 삭제 : file_num으로 한 개 -->
+  <delete id="deleteUploadFileNum">
+  	DELETE	
+  	 FROM   FILES
+  	 WHERE  FILE_NUM = #{file_num}
+  </delete>
+  
+  
+  <!-- Board Table 삭제 : bno -->
+  <delete id="setDelete">
+  	DELETE
+  	 FROM   BOARD
+  	 WHERE  BNO = #{bno}
+  </delete>
+  
+  <!-- Board 정보 수정 -->
+  <update id="setUpdate" >
+  	UPDATE 	  BOARD
+  	 SET			TITLE   = #{title}
+  	 				, CONTENT = #{content}
+  	 WHERE  	BNO = #{bno}
+  </update>
+  
   
   
 </mapper>

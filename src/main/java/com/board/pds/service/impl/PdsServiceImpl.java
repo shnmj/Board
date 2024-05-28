@@ -31,18 +31,18 @@ public class PdsServiceImpl implements PdsService {
 		// System.out.println("pdsService pdsList:" + pdsList);
 		return pdsList;
 	}
-
+	
+	// 자료실 내용 view
 	@Override
 	public PdsVo getPds(HashMap<String, Object> map) {
 		PdsVo  pdsVo = pdsMapper.getPds(map);
-		System.out.println("pdsVo:" + pdsVo);
 		return pdsVo;
 	}
-
+	
+	// 자료실 목록 view
 	@Override
 	public List<FilesVo> getFileList(HashMap<String, Object> map) {
 		List<FilesVo> fileList = pdsMapper.getFileList(map);
-		System.out.println("fileList:" + fileList);
 		return fileList;
 	}
 	
@@ -76,6 +76,51 @@ public class PdsServiceImpl implements PdsService {
 		List<FilesVo> fileList = (List<FilesVo>) map.get("fileList");
 		if(fileList.size() !=0)
 			pdsMapper.setFileWrite(map);
+		
+	}
+
+	@Override
+	public void setReadcountUpdate(HashMap<String, Object> map) {
+		// 조회수 증가
+		pdsMapper.setReadcountUpdate(map);
+	}
+
+	@Override
+	public FilesVo getFileInfo(Long file_num) {
+		FilesVo filesVo = pdsMapper.getFileInfo(file_num);
+		return  filesVo;
+	}
+
+	@Override
+	public void setDelete(HashMap<String, Object> map) {
+		
+		// 해당 파일 삭제
+		List<FilesVo> fileList = (List<FilesVo>) map.get("fileList");
+		System.out.println("delete fileList:" + fileList);
+		// 실제 물리적인 파일 삭제
+		PdsFile.delete(uploadPath, fileList);
+		// Files Table 정보 삭제
+		pdsMapper.deleteUploadFile(map);
+		// Board Table 정보 삭제
+		pdsMapper.setDelete(map);
+		
+	}
+
+	@Override
+	public void setUpdate(HashMap<String, Object> map, MultipartFile[] uploadFiles) {
+		
+		// 업로드 된 파일을 물리 저장소(하드디스크)에 저장
+		map.put("uploadPath", uploadPath);
+		PdsFile.save(map, uploadFiles); // 파일 저장 후 fileList에 저장된 정보 return
+		
+		// Files 정보 추가 (fileList 0
+		List<FilesVo> fileList = (List<FilesVo>) map.get("fileList");
+		if(fileList.size() != 0)
+			pdsMapper.setFileWrite(map);
+
+		// Board 정보 수정
+		pdsMapper.setUpdate(map);
+		
 	}
 
 }

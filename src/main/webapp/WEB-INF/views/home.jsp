@@ -30,7 +30,7 @@
 	<div><a href="/BoardPaging/WriteForm?menu_id=MENU01">게시물 등록(페이징)</a></div>
 	<div>&nbsp;</div>
 	<div>&nbsp;</div>
-	
+	<hr>
 	<div><a href="/Pds/List?menu_id=MENU01">자료실 목록</a></div>
 	<div><a href="/Pds/WriteForm?menu_id=MENU01">자료실 등록</a></div>
 	<div>&nbsp;</div>
