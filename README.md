@@ -5,12 +5,12 @@
     Error 해결
   </summary>
   <ul dir="auto">
-  <li>Name for argument of type Error</li>
+  <li>NULL을 ("SPRING"."FILES"."FILENAME") 안에 삽입할 수 없습니다</li>
   <ol>
-    <li>Parameter를 처리하는 BoardVo 객체 이용</li>
-    insert(BoardVo vo) {}
-    <li>insert(@RequestParam("title") String title,</li>
-    @RequestParam("title") String content) {}
+    <li>if문 + 연산자</li>
+    files insert 문제로 null이 넘어와도 fileList에 저장 하지 않게 함<br><br>
+    -> if(!fileName.trim().equals("") || fileName != null ) <br>
+    (공백을 제거했을 때 equals가 아니거나 파일이름이 null이 아닐 때)
     
   </ol>
     
