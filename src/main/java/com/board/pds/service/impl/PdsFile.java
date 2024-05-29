@@ -76,7 +76,9 @@ public class PdsFile {
 	    	  
 	    	  // 저장된 파일들 정보를 map에 List로 저장 -> pdsServiceImpl에 사용
 	    	  FilesVo vo = new FilesVo(0, 0, fileName, fileExt, saveName2);
-	    	  fileList.add(vo);
+	    	  if(!fileName.trim().equals("") || fileName != null ) 
+	    		  // 공백을 제거했을 때 equals가 아니거나 파일이름이 null이 아닐 때
+	    		  fileList.add(vo);
 	    	  
 	    	  
 	      } // end for
