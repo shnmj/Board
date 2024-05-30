@@ -198,29 +198,9 @@
   </summary>
   <ul dir="auto">
     <br>
-    <li>Spring 공홈 JPA 참조 사이트 : https://spring.io/projects/spring-data-jpa#samples</li>
+    
 
   
     
 </details>
 <br>
-<details>
-  <summary>
-    05.29
-  </summary>
-  <ul dir="auto">
-    <br>
-
-    
-
-</details>
-<br>
-<details>
-  <summary>
-    PrjJpa04
-  </summary>
-  <ul dir="auto">
-    <br>
-
-    content-type : text/html;charset=UTF-8  = mime type
-    
